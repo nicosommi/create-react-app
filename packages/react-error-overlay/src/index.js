@@ -69,10 +69,9 @@ export function startReportingRuntimeErrors(options: RuntimeReportingOptions) {
       if (typeof options.onError === 'function') {
         options.onError.call(null);
       }
-    } finally {
-      handleRuntimeError(errorRecord);
-    }
-  }, options.filename);
+    },
+    options.filename
+  );
 }
 
 function handleRuntimeError(errorRecord) {
@@ -160,8 +159,8 @@ function updateIframeContent() {
   }
 }
 
-window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__ =
-  window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__ || {};
+window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__ = window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__ || {
+};
 window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__.iframeReady = function iframeReady() {
   isIframeReady = true;
   isLoadingIframe = false;

@@ -217,20 +217,26 @@ function verify_module_scope {
   echo "{}" >> sample.json
 
   # Save App.js, we're going to modify it
-  cp src/App.js src/App.js.bak
+  cp src/App.tsx src/App.tsx.bak
 
   # Add an out of scope import
-  echo "import sampleJson from '../sample'" | cat - src/App.js > src/App.js.temp && mv src/App.js.temp src/App.js
+  echo "import sampleJson from '../sample.json'" | cat - src/App.tsx > src/App.tsx.temp && mv src/App.tsx.temp src/App.tsx
 
   # Make sure the build fails
   yarn build; test $? -eq 1 || exit 1
   # TODO: check for error message
 
+<<<<<<< HEAD
   rm sample.json
 
   # Restore App.js
   rm src/App.js
   mv src/App.js.bak src/App.js
+=======
+  # Restore App.tsx
+  rm src/App.tsx
+  mv src/App.tsx.bak src/App.tsx
+>>>>>>> 021b42ad90529d4fee3ca1c19b765487e2a6e994
 }
 
 # Enter the app directory
@@ -239,6 +245,7 @@ cd test-app
 # Test the build
 yarn build
 # Check for expected output
+pwd
 exists build/*.html
 exists build/static/js/*.js
 exists build/static/css/*.css
@@ -248,7 +255,7 @@ exists build/favicon.ico
 # Run tests with CI flag
 CI=true yarn test
 # Uncomment when snapshot testing is enabled by default:
-# exists src/__snapshots__/App.test.js.snap
+# exists src/__snapshots__/App.test.tsx.snap
 
 # Test the server
 yarn start --smoke-test
