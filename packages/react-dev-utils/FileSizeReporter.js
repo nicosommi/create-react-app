@@ -43,7 +43,7 @@ function printFileSizesAfterBuild(
             name: path.basename(asset.name),
             size: size,
             sizeLabel:
-              filesize(size) + (difference ? ' (' + difference + ')' : '')
+              filesize(size) + (difference ? ' (' + difference + ')' : ''),
           };
         })
     )
@@ -128,15 +128,12 @@ function measureFileSizesBeforeBuild(buildFolder) {
       if (!err && fileNames) {
         sizes = fileNames
           .filter(fileName => /\.(js|css)$/.test(fileName))
-          .reduce(
-            (memo, fileName) => {
-              var contents = fs.readFileSync(fileName);
-              var key = removeFileNameHash(buildFolder, fileName);
-              memo[key] = gzipSize(contents);
-              return memo;
-            },
-            {}
-          );
+          .reduce((memo, fileName) => {
+            var contents = fs.readFileSync(fileName);
+            var key = removeFileNameHash(buildFolder, fileName);
+            memo[key] = gzipSize(contents);
+            return memo;
+          }, {});
       }
       resolve({
         root: buildFolder,
