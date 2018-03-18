@@ -67,11 +67,11 @@ export function startReportingRuntimeErrors(options: RuntimeReportingOptions) {
   stopListeningToRuntimeErrors = listenToRuntimeErrors(errorRecord => {
     try {
       if (typeof options.onError === 'function') {
-        options.onError.call(null);
+        options.onError.call(null, errorRecord);
       }
-    },
-    options.filename
-  );
+      handleRuntimeError(errorRecord);
+    } catch (e) {}
+  }, options.filename);
 }
 
 function handleRuntimeError(errorRecord) {
@@ -159,8 +159,8 @@ function updateIframeContent() {
   }
 }
 
-window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__ = window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__ || {
-};
+window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__ =
+  window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__ || {};
 window.__REACT_ERROR_OVERLAY_GLOBAL_HOOK__.iframeReady = function iframeReady() {
   isIframeReady = true;
   isLoadingIframe = false;
