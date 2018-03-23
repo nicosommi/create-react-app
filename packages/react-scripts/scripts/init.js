@@ -163,6 +163,8 @@ module.exports = function(
     '@types/react-dom',
     '@types/jest',
     'typescript',
+    'react-hot-loader',
+    'svg-inline-loader',
   ];
 
   console.log(

@@ -181,6 +181,13 @@ module.exports = {
             include: paths.appSrc,
             use: [
               {
+                loader: 'babel-loader',
+                options: {
+                  babelrc: true,
+                  plugins: ['react-hot-loader/babel'],
+                },
+              },
+              {
                 loader: require.resolve('ts-loader'),
                 options: {
                   // disable type checker - we will use it in fork plugin
@@ -188,6 +195,10 @@ module.exports = {
                 },
               },
             ],
+          },
+          {
+            test: /\.svg$/,
+            loader: 'svg-inline-loader?classPrefix'
           },
           // "postcss" loader applies autoprefixer to our CSS.
           // "css" loader resolves paths in CSS and adds assets as dependencies.
