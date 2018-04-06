@@ -17,10 +17,8 @@ const render = (Application: any) => ReactDOM.render(
 registerServiceWorker()
 // Webpack Hot Module Replacement API
 if ((module as any).hot) {
-  (module as any).hot.accept('./scenes/game', () => {
-    // if you are using harmony modules ({modules:false})
-    render(App)
-    // in all other cases - re-require App manually
-    render(require('./scenes/game').default)
+  (module as any).hot.accept('./App', () => {
+    render(require('./App').default)
   })
 }
+render(App)
