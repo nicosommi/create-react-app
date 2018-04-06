@@ -165,6 +165,7 @@ module.exports = function(
     'typescript',
     'react-hot-loader',
     'svg-inline-loader',
+    'react-styleguidist',
   ];
 
   console.log(
